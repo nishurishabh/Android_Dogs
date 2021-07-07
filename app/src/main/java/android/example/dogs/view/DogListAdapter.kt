@@ -1,6 +1,8 @@
 package android.example.dogs.view
 
 import android.example.dogs.R
+import android.example.dogs.Util.getProgressDrawble
+import android.example.dogs.Util.loadImage
 import android.example.dogs.model.DogBreed
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,7 @@ class DogListAdapter(val dogsList: ArrayList<DogBreed>): RecyclerView.Adapter<Do
         holder.view.setOnClickListener {
             Navigation.findNavController(it).navigate(ListFragmentDirections.actionDetailFragment())
         }
+        holder.view.imageView.loadImage(dogsList[position].imageUrl, getProgressDrawble(holder.view.imageView.context))
     }
 
     override fun getItemCount(): Int = dogsList.size
