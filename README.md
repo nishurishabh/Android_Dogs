@@ -15,3 +15,11 @@ Components:
     - Observables : Objects that can emit data and be observed.
     - Observers or Subscribers : Subscribes to observables or listens to data emitted by observables.
     - Single : Emits single event (Data or Error) and then it ends. For ex. a network response, which can be either the data of response or error. 
+    
+Glide : 
+Library is used to load images efficiently on the device.
+
+Room : 
+Abstraction of the SQL Database. Compile time Generated classes to store objects in the local database. Compile time error handling.
+
+

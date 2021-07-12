@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.example.dogs.R
+import android.example.dogs.Util.getProgressDrawble
+import android.example.dogs.Util.loadImage
 import android.example.dogs.viewModel.DetailViewModel
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavDirections
-import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_list.*
 
 class DetailFragment : Fragment() {
 
@@ -31,23 +29,24 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel  = ViewModelProviders.of(this).get(DetailViewModel::class.java)
-        viewModel.fetch()
-
         arguments?.let {
             dogUuid = DetailFragmentArgs.fromBundle(it).dogUuid
         }
-
+        viewModel.fetch(dogUuid)
         observeViewModel()
     }
 
     private fun observeViewModel() {
 
-        viewModel.dog.observe(viewLifecycleOwner, Observer { dog->
+        viewModel.dogLiveData.observe(viewLifecycleOwner, Observer { dog->
             dog?.let {
                 dogName.text = it.dogBreed
                 dogPurpose.text = it.bredFor
                 dogTemperament.text = it.temperament
                 dogLifespan.text = it.lifeSpan
+                context?.let {
+                    dogImage.loadImage(dog.imageUrl, getProgressDrawble(it))
+                }
             }
         })
     }
