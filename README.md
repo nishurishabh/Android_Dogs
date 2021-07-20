@@ -22,4 +22,6 @@ Library is used to load images efficiently on the device.
 Room : 
 Abstraction of the SQL Database. Compile time Generated classes to store objects in the local database. Compile time error handling.
 
-
+Data Binding : 
+helps in binding the data with view in layout. Because view.VIEW_NAME is a expensive function call as it has to traverse the tree created for layout. For ex. In this application, there a
+are 200 dogs in the list, each of item calls holder.view multiple times which is not efficient.  Which can be avoided using data-binding. 
