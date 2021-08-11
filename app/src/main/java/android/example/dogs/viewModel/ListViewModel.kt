@@ -1,6 +1,8 @@
 package android.example.dogs.viewModel
 
 import android.app.Application
+import android.app.NotificationManager
+import android.example.dogs.Util.NotificationsHelper
 import android.example.dogs.Util.SharedPreferenceHelper
 import android.example.dogs.model.DogBreed
 import android.example.dogs.model.DogDatabase
@@ -57,6 +59,7 @@ class ListViewModel(application: Application): BaseViewModel(application ) {
                     override fun onSuccess(dogsList: List<DogBreed>) {
                         storeDogsLocally(dogsList)
                         Toast.makeText(getApplication(), "Dogs Retrieved from Endpoint", Toast.LENGTH_SHORT).show()
+                        NotificationsHelper(getApplication()).createNotification()
                     }
 
                     override fun onError(e: Throwable) {
@@ -64,7 +67,6 @@ class ListViewModel(application: Application): BaseViewModel(application ) {
                         loading.value = false
                         e.printStackTrace()
                     }
-
                 })
         )
     }
