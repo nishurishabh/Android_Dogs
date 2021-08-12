@@ -2,11 +2,9 @@ package android.example.dogs.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.example.dogs.R
 import android.example.dogs.viewModel.ListViewModel
+import android.view.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +23,7 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_list, container, false)
     }
@@ -74,6 +73,20 @@ class ListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.list_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.actionSetting -> {
+                view?.let { Navigation.findNavController(it).navigate(ListFragmentDirections.actionsSettings()) }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
